@@ -1,8 +1,9 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes  } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
+import type {} from '@mui/x-date-pickers/themeAugmentation';
 
 // A custom theme for this app
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: '#556cd6',
@@ -22,5 +23,8 @@ const theme = createTheme({
     }
   }
 });
+
+theme = responsiveFontSizes(theme);
+console.log(theme);
 
 export default theme;

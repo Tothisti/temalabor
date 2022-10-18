@@ -5,11 +5,11 @@ import './App.css';
 
 function App() {
   return (
-    <Container maxWidth="lg">
-      <Routes>
-        <Route path='/' element={<Home />} />
-      </Routes>
-    </Container>
+      <Container maxWidth="lg">
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </Container>
   );
 }
 
