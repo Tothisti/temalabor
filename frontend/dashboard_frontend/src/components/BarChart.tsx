@@ -2,6 +2,7 @@ import { ResponsiveBar } from '@nivo/bar'
 import { Box } from '@mui/system'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import DatePickerButton from './DatePickerButton';
 
 const data = [
     {
@@ -70,75 +71,87 @@ function BarChart() {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const bottomAxisFontSize = matches ? 18 : 12;
-    const xMargin = matches ? 18 : 0;
+    const padding = 0.4;
     return (
-        <Box sx={{ height: {xs: '400px', sm: '600px'}, width: 1 }}>
-            <ResponsiveBar
-                data={data}
-                keys={[
-                    'value'
-                ]}
-                indexBy="month"
-                margin={{ top: 50, right: xMargin, bottom: 50, left: xMargin }}
-                padding={0.3}
-                valueScale={{ type: 'linear' }}
-                indexScale={{ type: 'band', round: true }}
-                colors={({ id, data }) => data.valueColor}
-                defs={[
-                    {
-                        id: 'barGradient',
-                        type: 'linearGradient',
-                        colors: [
-                            { offset: 0, color: '#71B0DA' },
-                            { offset: 100, color: '#113F5B' },
-                        ],
-                    },
+        <>
+            <Box sx={{ height: { xs: '400px', sm: '600px' }, width: 1 }}>
+                <ResponsiveBar
+                    data={data}
+                    keys={[
+                        'value'
+                    ]}
+                    indexBy="month"
+                    margin={{ top: 50, right: 0, bottom: 50, left: 0 }}
+                    padding={padding}
+                    valueScale={{ type: 'linear' }}
+                    indexScale={{ type: 'band', round: true }}
+                    colors={({ id, data }) => data.valueColor}
+                    defs={[
+                        {
+                            id: 'barGradient',
+                            type: 'linearGradient',
+                            colors: [
+                                { offset: 0, color: '#71B0DA' },
+                                { offset: 100, color: '#113F5B' },
+                            ],
+                        },
 
-                ]}
-                fill={[
-                    { match: { id: 'value' }, id: 'barGradient' },
-                ]}
-                borderColor={{
-                    from: 'color',
-                    modifiers: [
-                        [
-                            'darker',
-                            1.6
+                    ]}
+                    fill={[
+                        { match: { id: 'value' }, id: 'barGradient' },
+                    ]}
+                    borderColor={{
+                        from: 'color',
+                        modifiers: [
+                            [
+                                'darker',
+                                1.6
+                            ]
                         ]
-                    ]
-                }}
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                    tickSize: 0,
-                    tickPadding: 10,
-                    tickRotation: 0,
-                    legend: '',
-                    legendPosition: 'middle',
-                    legendOffset: 30
-                }}
-                axisLeft={null}
-                enableGridY={false}
-                enableLabel={false}
-                labelSkipWidth={12}
-                labelSkipHeight={12}
-                labelTextColor={{
-                    from: 'color',
-                    modifiers: [
-                        [
-                            'darker',
-                            1.6
+                    }}
+                    axisTop={null}
+                    axisRight={null}
+                    axisBottom={{
+                        tickSize: 0,
+                        tickPadding: 10,
+                        tickRotation: 0,
+                        legend: '',
+                        legendPosition: 'middle',
+                        legendOffset: 30
+                    }}
+                    axisLeft={null}
+                    enableGridY={false}
+                    enableLabel={false}
+                    labelSkipWidth={12}
+                    labelSkipHeight={12}
+                    labelTextColor={{
+                        from: 'color',
+                        modifiers: [
+                            [
+                                'darker',
+                                1.6
+                            ]
                         ]
-                    ]
-                }}
-                theme={{
-                    fontSize: bottomAxisFontSize,
+                    }}
+                    theme={{
+                        fontSize: bottomAxisFontSize,
 
-                }}
-                role="application"
-                ariaLabel="Nivo bar chart demo"
-            />
-        </Box>
+                    }}
+                    role="application"
+                    ariaLabel="Nivo bar chart demo"
+                />
+            </Box>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'end',
+                gap: 2,
+                marginTop: '2rem',
+                paddingRight: padding * 15
+            }}>
+                <DatePickerButton />
+                <DatePickerButton />
+            </Box>
+        </>
     )
 }
 

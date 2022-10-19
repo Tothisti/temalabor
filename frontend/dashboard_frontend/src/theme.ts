@@ -5,8 +5,12 @@ import type {} from '@mui/x-date-pickers/themeAugmentation';
 // A custom theme for this app
 let theme = createTheme({
   palette: {
+    neutral: {
+      main: '#EBEBEB',
+      contrastText: '#000000',
+    },
     primary: {
-      main: '#556cd6',
+      main: '#CE7559',
     },
     secondary: {
       main: '#19857b',
@@ -14,6 +18,7 @@ let theme = createTheme({
     error: {
       main: red.A400,
     },
+    
   },
   typography: {
     h1: {
@@ -24,7 +29,24 @@ let theme = createTheme({
   }
 });
 
-theme = responsiveFontSizes(theme);
-console.log(theme);
+declare module '@mui/material/styles' {
+  interface Palette {
+    neutral: Palette['primary'];
+  }
 
+  // allow configuration using `createTheme`
+  interface PaletteOptions {
+    neutral?: PaletteOptions['primary'];
+  }
+}
+
+// Update the Button's color prop options
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    neutral: true;
+  }
+}
+
+
+theme = responsiveFontSizes(theme);
 export default theme;
