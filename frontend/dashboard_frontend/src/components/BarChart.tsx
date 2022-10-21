@@ -3,6 +3,7 @@ import { Box } from '@mui/system'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import DatePickerButton from './DatePickerButton';
+import { Stack } from '@mui/material';
 
 const data = [
     {
@@ -141,16 +142,14 @@ function BarChart() {
                     ariaLabel="Nivo bar chart demo"
                 />
             </Box>
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'end',
-                gap: 2,
-                marginTop: '2rem',
-                paddingRight: padding * 15
-            }}>
+            <Stack 
+            direction="row"
+            spacing={2}
+            justifyContent='flex-end'
+            alignItems='center'>
                 <DatePickerButton />
                 <DatePickerButton />
-            </Box>
+            </Stack>
         </>
     )
 }

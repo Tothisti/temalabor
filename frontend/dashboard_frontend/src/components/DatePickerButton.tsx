@@ -87,6 +87,7 @@ function DatePickerButton() {
                     displayStaticWrapperAs="desktop"
                     value={value}
                     className='my-date-picker'
+                    onAccept={handleClose}
                     onChange={(newValue) => {
                         setValue(newValue);
                     }}
