@@ -37,7 +37,7 @@ let theme = createTheme({
       textTransform: 'none'
     },
     body1: {
-      fontSize: '2.2rem',
+      fontSize: '1.6rem',
     },
   }
 });

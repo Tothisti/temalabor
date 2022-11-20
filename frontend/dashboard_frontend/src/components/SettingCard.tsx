@@ -7,6 +7,8 @@ import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { MyChartData, Months } from '../store';
+import { Atom, useAtom } from 'jotai'
 
 const CustomInput = styled(InputBase)(({ theme }) => ({
    
@@ -22,24 +24,14 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const Months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-]
 
-function SettingCard() {
+interface SettingCardProps {
+    dataAtom: Atom<MyChartData>
+}
+
+function SettingCard({dataAtom} : SettingCardProps) {
+    const [data, setData] = useAtom(dataAtom);
     const [age, setAge] = useState<string>('');
-
     const handleChange = (event: SelectChangeEvent) => {
         setAge(event.target.value as string);
     };
@@ -51,7 +43,7 @@ function SettingCard() {
             justifyContent='center'
             gap={7}
         >
-            <Typography variant="h4">560 ea</Typography>
+            <Typography variant="h4">{data.title}</Typography>
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <Select
                     displayEmpty
@@ -65,20 +57,19 @@ function SettingCard() {
                         },
                         borderRadius: 0
                     }}
-                    renderValue={(selected: any) => {
+                    renderValue={(selected : string) => {
                         if (selected.length === 0) {
                             return <em>Placeholder</em>;
                         }
-                        console.log(selected)
                         return [selected];
                     }}
                 >
-                    {Months.map((month => (
+                    {(Object.keys(Months) as Array<keyof typeof Months>).map((month => (
                         <MenuItem
-                            key={month}
-                            value={month}
+                            key={month.toString()}
+                            value={month.toString()}
                         >
-                            {month}
+                            {month.toString()}
                         </MenuItem>
                     )))}
                 </Select>

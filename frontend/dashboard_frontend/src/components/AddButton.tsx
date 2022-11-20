@@ -5,13 +5,17 @@ import Popover from '@mui/material/Popover';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from '@mui/system';
 import Stack from '@mui/material/Stack';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
-import Typography from '@mui/material/Typography';
-
+import { DataAtomsAtom } from '../store'
+import { useAtom } from 'jotai'
+import  PopoverMenuItem from './PopoverMenuitem'
 
 function AddButton() {
-
+    const [dataAtoms] = useAtom(DataAtomsAtom)
+    const popOverInnerList = dataAtoms.map((item, i) => {
+        return (
+            <PopoverMenuItem key={i} dataAtom={item} />
+        )
+    })
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,7 +62,7 @@ function AddButton() {
                         width: '16rem',
                         border: '2px solid',
                         borderColor: (theme) => theme.palette.primary.light,
-                       
+
                     }
                 }}
             >
@@ -79,36 +83,10 @@ function AddButton() {
                     direction='column'
                     alignItems='center'
                     justifyContent='space-between'
-                    sx={{ px: '2.3rem'}}
+                    sx={{ px: '2.3rem' }}
                     gap={2}
                 >
-                    <Stack
-                        direction='row'
-                        justifyContent="space-between"
-                        alignItems='center'
-                        sx={{width: 1, cursor: 'pointer'}}
-                    >
-                        <Typography variant='caption'>Sample 1</Typography>
-                        <StarBorderIcon fontSize='medium' />
-                    </Stack>
-                    <Stack
-                        direction='row'
-                        justifyContent="space-between"
-                        alignItems='center'
-                        sx={{width: 1, cursor: 'pointer'}}
-                    >
-                        <Typography variant='caption'>Sample 2</Typography>
-                        <StarBorderIcon fontSize='medium' />
-                    </Stack>
-                    <Stack
-                        direction='row'
-                        justifyContent="space-between"
-                        alignItems='center'
-                        sx={{width: 1, cursor: 'pointer'}}
-                    >
-                        <Typography variant='caption'>Sample 3</Typography>
-                        <StarBorderIcon fontSize='medium' />
-                    </Stack>
+                    {popOverInnerList}
                 </Stack>
             </Popover>
         </>

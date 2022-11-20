@@ -1,51 +1,19 @@
 import Stack from '@mui/material/Stack'
 import PieChartCard from './PieChartCard';
-
-const data0 = [
-    {
-        "value": 25,
-        "valueColor": "#BEDCFD"
-    },
-    {
-        "value": 75,
-        "valueColor": "#249CF9"
-    },
-    
-   
-];
-
-const data1 = [
-    {
-        "value": 25,
-        "valueColor": "#BEDCFD"
-    },
-    {
-        "value": 75,
-        "valueColor": "#CA775E"
-    },
-    
-   
-];
-
-const data2 = [
-    {
-        "value": 25,
-        "valueColor": "#BEDCFD"
-    },
-    {
-        "value": 75,
-        "valueColor": "#FFFFFD"
-    },
-    
-   
-];
+import { useAtom } from "jotai"
+import { MyPieChartDataAtom } from '../store'
 
 function CustomChartsSection() {
+    const [myPieChartData] = useAtom(MyPieChartDataAtom);
+    const pieChartCardList = myPieChartData
+        .filter((item) => item.isSelected)
+        .map((item, i) => {
+            return <PieChartCard key={i} chartData={item} />
+        })
+
     return (
         <Stack>
-            <PieChartCard data={data0}/>
-            <PieChartCard data={data1}/>
-            <PieChartCard data={data2}/>
+            {pieChartCardList}
         </Stack>
     );
 }

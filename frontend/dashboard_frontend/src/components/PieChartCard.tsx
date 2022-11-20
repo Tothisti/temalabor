@@ -1,5 +1,6 @@
 import { ResponsivePie } from '@nivo/pie'
 import { Stack, Typography, Box } from '@mui/material'
+import { MyChartData } from '../store'
 
 const CenteredMetric = (e: any) => {
     return (
@@ -14,16 +15,12 @@ const CenteredMetric = (e: any) => {
         >75%</Typography>
     )
 }
-interface Data {
-    value: number,
-    valueColor: string
-}
 
 interface PieChartCardProps {
-    data: Array<Data>
+    chartData: MyChartData
 }
 
-function PieChartCard({data}: PieChartCardProps) {
+function PieChartCard({chartData}: PieChartCardProps) {
 
     return (
         <Stack
@@ -33,29 +30,34 @@ function PieChartCard({data}: PieChartCardProps) {
             justifyContent='space-around'
             sx={{
                 p: 3,
-                "&:nth-child(3n+1)" : {
+                "&:nth-of-type(3n+1)" : {
                     backgroundColor: '&fff',
                     color: '#66ACE8',
                     "span": {color: '#637C8C'},
-                    ".piechartcenteredtext": {fill: '#249CF9'}
+                    ".piechartcenteredtext": {fill: '#249CF9'},
+                    "g path:nth-of-type(1)": {fill: '#BEDCFD', stroke: '#BEDCFD'},
+                    "g path:nth-of-type(2)": {fill: '#249CF9', stroke: '#249CF9'}
                 },
-                "&:nth-child(3n+2)" : {
+                "&:nth-of-type(3n+2)" : {
                     backgroundColor: '#F0EBE8',
                     color: '#66ACE8',
                     "span": {color: '#637C8C'},
-                    ".piechartcenteredtext": {fill: '#CB765A'}
+                    ".piechartcenteredtext": {fill: '#CB765A'},
+                    "g path:nth-of-type(1)": {fill: '#BEDCFD', stroke: '#BEDCFD'},
+                    "g path:nth-of-type(2)": {fill: '#CB765A', stroke: '#CB765A'}
                 },
-                "&:nth-child(3n+0)" : {
+                "&:nth-of-type(3n+0)" : {
                     backgroundColor: '#3A7295',
                     color: '#fff',
-                    ".piechartcenteredtext": {fill: '#fff'}
+                    ".piechartcenteredtext": {fill: '#fff'},
+                    "g path:nth-of-type(1)": {fill: '#BEDCFD', stroke: '#BEDCFD'},
+                    "g path:nth-of-type(2)": {fill: '#FFFFFD', stroke: '#FFFFFD'}
                 }
             }}
         >
             <Box height={{xs: '250px', sm: '300px'}} width='200px' sx={{py: 5}}>
                 <ResponsivePie
-                    data={data}
-                    colors={({ id, data }) => data.valueColor}
+                    data={chartData.data}
                     margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
                     innerRadius={0.8}
                     activeOuterRadiusOffset={8}
@@ -75,9 +77,9 @@ function PieChartCard({data}: PieChartCardProps) {
                     layers={['arcs', 'arcLabels', 'arcLinkLabels', 'legends', CenteredMetric]}
                 />
             </Box>
-            <Box>
-                <Typography variant='caption'textTransform='uppercase'>Sample title</Typography>
-                <Typography variant='body1' >Lorem ipsum dolor sit ament.</Typography>
+            <Box maxWidth='600px' marginLeft={2}>
+                <Typography variant='caption'textTransform='uppercase'>{chartData.title}</Typography>
+                <Typography variant='body1' >{chartData.desc}</Typography>
             </Box>
         </Stack>
     )
