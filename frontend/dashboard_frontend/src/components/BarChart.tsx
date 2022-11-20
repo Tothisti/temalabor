@@ -13,22 +13,22 @@ const data = [
     },
     {
         "month": "Feb",
-        "value": 82,
+        "value": 24,
         "valueColor": "#113F5B",
     },
     {
         "month": "Mar",
-        "value": 13,
+        "value": 20,
         "valueColor": "#113F5B",
     },
     {
         "month": "Apr",
-        "value": 35,
+        "value": 10,
         "valueColor": "#113F5B",
     },
     {
         "month": "May",
-        "value": 94,
+        "value": 30,
         "valueColor": "#113F5B",
     },
     {
@@ -53,7 +53,7 @@ const data = [
     },
     {
         "month": "Oct",
-        "value": 10,
+        "value": 15,
         "valueColor": "#113F5B",
     },
     {
@@ -63,7 +63,7 @@ const data = [
     },
     {
         "month": "Dec",
-        "value": 5,
+        "value": 80,
         "valueColor": "#113F5B"
     }
 ]
@@ -74,13 +74,10 @@ function BarChart() {
     const bottomAxisFontSize = matches ? 18 : 12;
     const padding = 0.4;
     return (
-        <>
+        <Box sx={{px: 3}}>
             <Box sx={{ height: { xs: '400px', sm: '600px' }, width: 1 }}>
                 <ResponsiveBar
                     data={data}
-                    keys={[
-                        'value'
-                    ]}
                     indexBy="month"
                     margin={{ top: 50, right: 0, bottom: 50, left: 0 }}
                     padding={padding}
@@ -150,7 +147,7 @@ function BarChart() {
                 <DatePickerButton />
                 <DatePickerButton />
             </Stack>
-        </>
+        </Box>
     )
 }
 

@@ -56,7 +56,7 @@ function DatePickerButton() {
                     color: (theme) => {
                         return anchorEl === null ?
                             theme.palette.neutral.contrastText :
-                            '#fff'
+                            theme.palette.backgroundcolor.main
                     }
                 }}>
                 {value?.format('YYYY-MM-DD')}

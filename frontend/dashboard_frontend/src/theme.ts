@@ -1,42 +1,57 @@
-import { createTheme, responsiveFontSizes  } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes, TypeBackground  } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 import type {} from '@mui/x-date-pickers/themeAugmentation';
 
-// A custom theme for this app
 let theme = createTheme({
   palette: {
     neutral: {
       main: '#EBEBEB',
       contrastText: '#000000',
     },
+    backgroundcolor: {
+      main: '#fff',
+    },
     primary: {
-      main: '#CE7559',
+      main: '#D0755A',
     },
     secondary: {
-      main: '#19857b',
+      main: '#249CF9',
     },
     error: {
       main: red.A400,
     },
-    
   },
   typography: {
     h1: {
       fontWeight: 'bold',
       fontSize: '3rem',
       textAlign: 'center'
-    }
+    },
+    h4: {
+      fontWeight: 'bold',
+      fontSize: '2.4rem',
+    },
+    caption: {
+      fontWeight: 'bold',
+      fontSize: '1.3rem',
+      textTransform: 'none'
+    },
+    body1: {
+      fontSize: '2.2rem',
+    },
   }
 });
 
 declare module '@mui/material/styles' {
   interface Palette {
     neutral: Palette['primary'];
+    backgroundcolor: Palette['primary'];
   }
 
   // allow configuration using `createTheme`
   interface PaletteOptions {
     neutral?: PaletteOptions['primary'];
+    backgroundcolor?: PaletteOptions['primary'];
   }
 }
 
@@ -44,6 +59,7 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     neutral: true;
+    background: true;
   }
 }
 

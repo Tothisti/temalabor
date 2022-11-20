@@ -1,63 +1,61 @@
 import { ResponsivePie } from '@nivo/pie'
 import { Stack, Typography, Box } from '@mui/material'
 
-const data = [
-    {
-        "id": "go",
-        "label": "go",
-        "value": 441,
-        "color": "hsl(134, 70%, 50%)"
-    },
-    {
-        "id": "erlang",
-        "label": "erlang",
-        "value": 151,
-        "color": "hsl(235, 70%, 50%)"
-    },
-    {
-        "id": "rust",
-        "label": "rust",
-        "value": 489,
-        "color": "hsl(102, 70%, 50%)"
-    },
-    {
-        "id": "hack",
-        "label": "hack",
-        "value": 69,
-        "color": "hsl(292, 70%, 50%)"
-    },
-    {
-        "id": "css",
-        "label": "css",
-        "value": 336,
-        "color": "hsl(38, 70%, 50%)"
-    }
-];
-
 const CenteredMetric = (e: any) => {
     return (
         <Typography
+            className="piechartcenteredtext"
             x={e.centerX}
             y={e.centerY}
             textAnchor='middle'
-            dominant-baseline="central"
+            dominantBaseline="central"
             component='text'
-            variant='h5'
-        >72%</Typography>
+            variant='caption'
+        >75%</Typography>
     )
 }
-function PieChartCard() {
+interface Data {
+    value: number,
+    valueColor: string
+}
+
+interface PieChartCardProps {
+    data: Array<Data>
+}
+
+function PieChartCard({data}: PieChartCardProps) {
+
     return (
         <Stack
-            height='300px'
+            minHeight='350px'
             direction={{xs: 'column', sm: 'row'}}
             alignItems='center'
             justifyContent='space-around'
-            border='1px solid black'
+            sx={{
+                p: 3,
+                "&:nth-child(3n+1)" : {
+                    backgroundColor: '&fff',
+                    color: '#66ACE8',
+                    "span": {color: '#637C8C'},
+                    ".piechartcenteredtext": {fill: '#249CF9'}
+                },
+                "&:nth-child(3n+2)" : {
+                    backgroundColor: '#F0EBE8',
+                    color: '#66ACE8',
+                    "span": {color: '#637C8C'},
+                    ".piechartcenteredtext": {fill: '#CB765A'}
+                },
+                "&:nth-child(3n+0)" : {
+                    backgroundColor: '#3A7295',
+                    color: '#fff',
+                    ".piechartcenteredtext": {fill: '#fff'}
+                }
+            }}
         >
-            <Box height='200px' width='200px'>
+            <Box height={{xs: '250px', sm: '300px'}} width='200px' sx={{py: 5}}>
                 <ResponsivePie
                     data={data}
+                    colors={({ id, data }) => data.valueColor}
                     margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
                     innerRadius={0.8}
                     activeOuterRadiusOffset={8}
@@ -78,8 +76,8 @@ function PieChartCard() {
                 />
             </Box>
             <Box>
-                <Typography variant='h5'>Sample title</Typography>
-                <Typography variant='body1'>Lorem ipsum dolor sit ament.</Typography>
+                <Typography variant='caption'textTransform='uppercase'>Sample title</Typography>
+                <Typography variant='body1' >Lorem ipsum dolor sit ament.</Typography>
             </Box>
         </Stack>
     )
