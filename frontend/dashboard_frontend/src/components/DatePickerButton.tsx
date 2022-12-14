@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCallback } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import TextField from '@mui/material/TextField';
@@ -8,7 +9,6 @@ import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import EventIcon from '@mui/icons-material/Event';
 import { styled } from '@mui/material/styles';
-import theme from '../theme';
 
 const CalendarButton = styled(Button)(({ theme }) => ({
     display: 'flex',
@@ -30,17 +30,18 @@ const CalendarButton = styled(Button)(({ theme }) => ({
 function DatePickerButton() {
     const [value, setValue] = useState<Dayjs | null>(dayjs());
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
-    };
+    }, []);
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setAnchorEl(null);
-    };
+    }, []);
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+    const handleOnChange = useCallback((newValue: any) => {
+        setValue(newValue);
+    }, []);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -63,8 +64,8 @@ function DatePickerButton() {
                 <EventIcon sx={{ ml: 1 }} />
             </CalendarButton>
             <Popover
-                id={id}
-                open={open}
+                id='simple-popover'
+                open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
                 onClose={handleClose}
                 anchorOrigin={{
@@ -88,9 +89,7 @@ function DatePickerButton() {
                     value={value}
                     className='my-date-picker'
                     onAccept={handleClose}
-                    onChange={(newValue) => {
-                        setValue(newValue);
-                    }}
+                    onChange={handleOnChange}
                     renderInput={(params) => <TextField {...params} />}
                 />
             </Popover>

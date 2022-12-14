@@ -4,6 +4,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Typography from '@mui/material/Typography';
 import {PrimitiveAtom, useAtom} from 'jotai'
 import { MyChartData } from '../store';
+import { useCallback } from 'react';
 
 interface PopOverMenuItemProps {
     dataAtom: PrimitiveAtom<MyChartData>
@@ -11,14 +12,14 @@ interface PopOverMenuItemProps {
 
 function PopoverMenuItem({dataAtom}: PopOverMenuItemProps) {
     const [data, setData] = useAtom(dataAtom)
-    const handleOnClick = () => {
+    const handleOnClick = useCallback(() => {
         setData((prev) => {
             return ({
                 ...prev,
                 isSelected: !prev.isSelected
             })
         })
-    }
+    }, []);
     
     return (
         <Stack

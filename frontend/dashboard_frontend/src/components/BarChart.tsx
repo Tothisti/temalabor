@@ -1,72 +1,11 @@
 import { ResponsiveBar } from '@nivo/bar'
-import { Box } from '@mui/system'
+import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import DatePickerButton from './DatePickerButton';
-import { Stack } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import { barChartData } from '../mockdatas';
 
-const data = [
-    {
-        "month": "Jan",
-        "value": 12,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Feb",
-        "value": 24,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Mar",
-        "value": 20,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Apr",
-        "value": 10,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "May",
-        "value": 30,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Jun",
-        "value": 10,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Jul",
-        "value": 40,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Aug",
-        "value": 34,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Sep",
-        "value": 22,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Oct",
-        "value": 15,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Nov",
-        "value": 20,
-        "valueColor": "#113F5B",
-    },
-    {
-        "month": "Dec",
-        "value": 80,
-        "valueColor": "#113F5B"
-    }
-]
 
 function BarChart() {
     const theme = useTheme();
@@ -77,7 +16,7 @@ function BarChart() {
         <Box sx={{px: 3}}>
             <Box sx={{ height: { xs: '400px', sm: '600px' }, width: 1 }}>
                 <ResponsiveBar
-                    data={data}
+                    data={barChartData}
                     indexBy="month"
                     margin={{ top: 50, right: 0, bottom: 50, left: 0 }}
                     padding={padding}

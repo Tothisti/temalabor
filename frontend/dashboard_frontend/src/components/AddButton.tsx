@@ -1,33 +1,35 @@
 import { useState } from 'react'
+import { useCallback } from 'react'
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import Popover from '@mui/material/Popover';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box } from '@mui/system';
+import Box  from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { DataAtomsAtom } from '../store'
 import { useAtom } from 'jotai'
+import { PrimitiveAtom } from 'jotai'
+import { MyChartData } from '../store'
 import  PopoverMenuItem from './PopoverMenuitem'
+
+function AtomMapToComponentList(dataAtoms : PrimitiveAtom<MyChartData>[]) {
+    return dataAtoms.map((item, i) => <PopoverMenuItem key={i} dataAtom={item} />)
+}
 
 function AddButton() {
     const [dataAtoms] = useAtom(DataAtomsAtom)
-    const popOverInnerList = dataAtoms.map((item, i) => {
-        return (
-            <PopoverMenuItem key={i} dataAtom={item} />
-        )
-    })
+    const popOverInnerList = AtomMapToComponentList(dataAtoms);
+    
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
-    };
+    }, []);
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setAnchorEl(null);
-    };
+    }, []);
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'add-button-popover' : undefined;
     return (
         <>
             <IconButton
@@ -43,8 +45,8 @@ function AddButton() {
                 <AddIcon fontSize="inherit" />
             </IconButton>
             <Popover
-                id={id}
-                open={open}
+                id='add-button-popover'
+                open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
                 onClose={handleClose}
                 anchorOrigin={{

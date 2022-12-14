@@ -1,18 +1,16 @@
 import SettingCard from './SettingCard';
 import Stack from '@mui/material/Stack';
 import AddButton from './AddButton';
-import { Box } from '@mui/system';
+import Box from '@mui/material/Box';
 import { useAtom } from "jotai"
-import { MyPieChartDataAtom, FilteredDataAtomsAtom } from '../store'
-
-
+import { FilteredDataAtomsAtom } from '../store'
 
 function SettingPanel() {
     const [filteredDataAtomsAtom] = useAtom(FilteredDataAtomsAtom)
-    const settingCardList = filteredDataAtomsAtom
-        .map((item, i) => {
+    const settingCardList = filteredDataAtomsAtom.map((item, i) => {
             return <SettingCard key={i} dataAtom={item} />
-        })
+    })
+
     return (
         <Stack
             direction={{ xs: 'column', sm: 'row' }}

@@ -1,5 +1,7 @@
 import { ResponsivePie } from '@nivo/pie'
-import { Stack, Typography, Box } from '@mui/material'
+import  Stack from '@mui/material/Stack';
+import  Typography from  '@mui/material/Typography';
+import  Box from '@mui/material/Box';
 import { MyChartData } from '../store'
 
 const CenteredMetric = (e: any) => {

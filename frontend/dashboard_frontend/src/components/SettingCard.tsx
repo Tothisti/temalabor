@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import Typography from '@mui/material/Typography';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
@@ -11,7 +11,6 @@ import { MyChartData, Months } from '../store';
 import { Atom, useAtom } from 'jotai'
 
 const CustomInput = styled(InputBase)(({ theme }) => ({
-   
     '& .MuiInputBase-input': {
         fontWeight: 'bold',
         position: 'relative',
@@ -30,12 +29,26 @@ interface SettingCardProps {
 }
 
 function SettingCard({dataAtom} : SettingCardProps) {
-    const [data, setData] = useAtom(dataAtom);
+    const [data] = useAtom(dataAtom);
     const [age, setAge] = useState<string>('');
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
 
+    const handleChange = useCallback((event: SelectChangeEvent) => {
+        setAge(event.target.value as string);
+    }, []);
+
+    const renderMonths = () => {
+        return (
+            (Object.keys(Months) as Array<keyof typeof Months>).map((month => (
+                <MenuItem
+                    key={month.toString()}
+                    value={month.toString()}
+                >
+                    {month.toString()}
+                </MenuItem>
+            )))
+        );
+    }
+    
     return (
         <Stack
             direction='row'
@@ -64,14 +77,7 @@ function SettingCard({dataAtom} : SettingCardProps) {
                         return [selected];
                     }}
                 >
-                    {(Object.keys(Months) as Array<keyof typeof Months>).map((month => (
-                        <MenuItem
-                            key={month.toString()}
-                            value={month.toString()}
-                        >
-                            {month.toString()}
-                        </MenuItem>
-                    )))}
+                    {renderMonths()}
                 </Select>
             </FormControl>
         </Stack>
